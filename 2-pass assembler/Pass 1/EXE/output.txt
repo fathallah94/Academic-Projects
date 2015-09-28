@@ -1,0 +1,45 @@
+1                    .       ..     ...                ..
+2       000000       PROG     start   0
+3       000000       FIRST    LDA     #0
+4       000003                LDD     #3                 .invalid operation
+                     ****Illegal mnemonic.
+5       000003                LDS     @LBL3
+6       000006                ADDR    T,A
+7       000008                LDX     #0
+8       00000B           LOOP STA      BUF,X             .misplaced operand
+                     ****Illegal Format.
+9       00000B                ADDS    T,X
+                     ****Illegal mnemonic.
+10      00000B                COMPR   X,S
+11      00000D                JLT     LOOP
+12      000010                JSUB    FON                .undefined symbol
+13      000013                J       *
+14                   ......... this is a function ..........
+15      000016       FUN      LDB     30
+16      000019               +LDA     BUF
+17      00001D                  +LDT     30              .misplaced operation and operand
+                     ****Illegal Format.
+18      00001D                RSUB    1000               .this is an inline comment    
+                     ****Illegal operand(s).
+19      00001D       BUF      RESW    10
+20      00003B       LBL1     WORD    7
+21      00003E       LBL1     WORD    30                 .duplicate symbol
+                     ****duplicate label definition.
+22      00003E       LBL3     WORD    60
+23      000041       BUF      RESB    12
+                     ****duplicate label definition.
+24      000041       TEMP1    BYTE    X'ABCDEF'
+25      000044       TEMP2    BYTE    C'ABCDEF'
+26      00004A                END     FIRST
+
+
+**********************SYMBOL TABLE**************************
+
+			Symbol		Address
+			buf		00001D
+			first		000000
+			fun		000016
+			lbl1		00003B
+			lbl3		00003E
+			temp1		000041
+			temp2		000044
